@@ -15,8 +15,6 @@ namespace Pangea.Model
 		[Required(ErrorMessage = "Seleccionar tipo de propietario")]
 		public string? OwnerType { get; set; }
 		[StringLength(10, ErrorMessage = "Máximo 10 caracteres.")]
-		public string? PhoneNumber { get; set; }
-		[StringLength(10, ErrorMessage = "Máximo 10 caracteres.")]
 		public string? CellphoneNumber { get; set; }
 		[StringLength(10, ErrorMessage = "Máximo 10 caracteres.")]
 		public string? OtherPhoneNumber { get; set; }
