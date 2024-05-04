@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pangea", "Pangea\Pangea.csproj", "{666CE585-86CE-4924-874E-CA48BF379A48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pangea", "Pangea\Pangea.csproj", "{666CE585-86CE-4924-874E-CA48BF379A48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pangea.Client", "Pangea.Client\Pangea.Client.csproj", "{3ADD56E8-29B3-4FD6-8A4B-C309D54F380B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pangea.Client", "Pangea.Client\Pangea.Client.csproj", "{3ADD56E8-29B3-4FD6-8A4B-C309D54F380B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

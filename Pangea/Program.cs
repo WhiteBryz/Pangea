@@ -2,11 +2,14 @@ using Microsoft.EntityFrameworkCore;
 using Pangea.Client.Pages;
 using Pangea.Components;
 using Pangea.Model;
+using Pangea.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<PangeaDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<IRepositoryOwners, RepositoryOwners>();
+
 builder.Services.AddRazorComponents()
 	.AddInteractiveServerComponents()
 	.AddInteractiveWebAssemblyComponents();
