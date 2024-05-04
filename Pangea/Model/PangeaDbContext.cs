@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+
 namespace Pangea.Model
 {
 	public class PangeaDbContext : DbContext
