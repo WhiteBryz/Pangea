@@ -7,7 +7,7 @@
 
 <h3>Propietarios</h3>
 
-<a class=" btn btn-success" href="personas/nueva">Agregar propietario</a>
+<a class=" btn btn-success" href="owners/new">Agregar propietario</a>
 @if(_owners == null)
 {
 	<div class="spinner-border" role="status">
@@ -85,7 +85,7 @@ else
 	}
 	private void Edit(int id)
 	{
-		_navigator.NavigateTo($"/personas/editar/{id}");
+		_navigator.NavigateTo($"/owners/edit/{id}");
 	}
 
 

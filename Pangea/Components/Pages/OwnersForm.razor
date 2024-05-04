@@ -1,0 +1,98 @@
+﻿@page "/owners/new"
+@page "/owners/edit/{id:int}"
+@rendermode InteractiveServer
+@inject NavigationManager _navigator;
+@inject IRepositoryOwners _repository;
+
+
+<h3>Registro / Modificación de Propietarios</h3>
+<h4>@_mensaje Propietario</h4>
+
+<EditForm Model="_owner" FormName="frmOwner" OnValidSubmit="SaveOwner">
+	<DataAnnotationsValidator />
+	<div class="row mb-3">
+		<label for="txtOwnerName" class="col-2 col-form-label">Nombre del Propietario</label>
+		<div class="col-10">
+			<InputText id="txtOwnerName" class="form-control" @bind-Value="_owner.OwnerName" />
+			<ValidationMessage For="()=>_owner.OwnerName" />
+		</div>
+	</div>
+	<div class="row mb-3">
+		<label for="txtHouseNumber" class="col-2 col-form-label">Número de Casa</label>
+		<div class="col-10">
+			<InputText id="txtHouseNumber" class="form-control" @bind-Value="_owner.HouseNumber" />
+			<ValidationMessage For="()=>_owner.HouseNumber" />
+		</div>
+		<label for="txtOwnerType" class="col-2 col-form-label">Tipo de Propietario</label>
+		<div class="col-10">
+			<InputSelect id="txtOwnerType" class="form-select" aria-label="Default select example" @bind-Value="_owner.OwnerType">
+				<option value="Propietario">Propietario</option>
+				<option value="Copropietario">Copropietario</option>
+				<option value="Inquilino">Inquilino</option>
+			</InputSelect>
+			<ValidationMessage For="()=>_owner.OwnerType" />
+		</div>
+	</div>
+	<div class="row mb-3">
+		<label for="txtCellphoneNumber" class="col-2 col-form-label">Número Celular</label>
+		<div class="col-10">
+			<InputText id="txtCellphoneNumber" class="form-control" @bind-Value="_owner.CellphoneNumber" />
+			<ValidationMessage For="()=>_owner.CellphoneNumber" />
+		</div>
+		<label for="txtOtherPhoneNumber" class="col-2 col-form-label">Telefono Adicional</label>
+		<div class="col-10">
+			<InputText id="txtOtherPhoneNumber" class="form-control" @bind-Value="_owner.OtherPhoneNumber" />
+			<ValidationMessage For="()=>_owner.OtherPhoneNumber" />
+		</div>
+	</div>
+	<div class="row mb-3">
+		<label for="txtIsActive" class="col-2 col-form-label">Estátus del propietario</label>
+		<div class="col-10">
+			<InputRadioGroup id="txtIsActive" class="form-control" @bind-Value="_owner.IsActive">
+				<InputRadio Value="true" />Activo
+				<InputRadio Value="false" />Inactivo
+			</InputRadioGroup>
+			<ValidationMessage For="()=>_owner.IsActive" />
+		</div>
+	</div>
+	<button type="submit" class="btn btn-primary">Guardar</button>
+	<button class="btn btn-danger ms-3" @onclick="Abort" @onclick:preventDefault>Cancelar</button>
+</EditForm>
+
+@code {
+	[Parameter]
+	public int Id { get; set; }
+	private string _mensaje = "";
+	private Owner? _owner = new();
+
+	private void Abort()
+	{
+		_navigator.NavigateTo("/owners");
+	}
+	protected override async Task OnInitializedAsync()
+	{
+		if (Id > 0)
+		{
+			_owner = await _repository.Get(Id);
+			_mensaje = "Modificar";
+		}
+		else
+		{
+			_mensaje = "Nuevo";
+		}
+	}
+
+	private async void SaveOwner()
+	{
+		if(Id > 0)
+		{
+			await _repository.Update(Id, _owner!);
+		}
+		else
+		{
+			await _repository.Add(_owner!);
+		}
+		Abort();
+	}
+
+}
