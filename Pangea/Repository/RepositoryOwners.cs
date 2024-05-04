@@ -1,5 +1,5 @@
-﻿using System.Data.Entity;
-using Pangea.Model;
+﻿using Pangea.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Pangea.Repository
 {
