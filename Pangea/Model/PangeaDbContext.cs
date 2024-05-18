@@ -8,6 +8,7 @@ namespace Pangea.Model
 		{
 		}
 		public DbSet<Owner> Owners { get; set; }
+		public DbSet<IncomeConcept> IncomeConcepts { get; set;}
 	}
 
 }
