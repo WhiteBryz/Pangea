@@ -8,6 +8,12 @@
 <h3>Registro / Modificación de Propietarios</h3>
 <h4>@_mensaje Propietario</h4>
 
+@if (!String.IsNullOrEmpty(_alertNotValidHouseNumber))
+{
+	<div class="alert alert-danger" role="alert">
+		@_alertNotValidHouseNumber
+	</div>
+}
 <EditForm Model="_owner" FormName="frmOwner" OnValidSubmit="SaveOwner">
 	<DataAnnotationsValidator />
 	<div class="row mb-3">
@@ -63,12 +69,9 @@
 	[Parameter]
 	public int Id { get; set; }
 	private string _mensaje = "";
+	private string _alertNotValidHouseNumber = "";
 	private Owner? _owner = new();
 
-	private void Abort()
-	{
-		_navigator.NavigateTo("/owners");
-	}
 	protected override async Task OnInitializedAsync()
 	{
 		if (Id > 0)
@@ -82,17 +85,48 @@
 		}
 	}
 
+	// Regresa a la lista de propietarios
+	private void Abort()
+	{
+		_navigator.NavigateTo("/owners");
+	}
+
+	// Guarda o modifica los datos del propietario nuevo/existente
 	private async void SaveOwner()
 	{
-		if(Id > 0)
+		if(isValidHouseNumber(_owner!) == true)
 		{
-			await _repository.Update(Id, _owner!);
+			// Quitamos alerta en caso de que haya aparecido.
+			_alertNotValidHouseNumber = "";
+
+			if (Id > 0)
+			{
+				await _repository.Update(Id, _owner!);
+			}
+			else
+			{
+				await _repository.Add(_owner!);
+			}
+			// Después de guardar regresamos a la lista de propietarios
+			Abort();
 		}
 		else
 		{
-			await _repository.Add(_owner!);
+			_alertNotValidHouseNumber = "El número de casa no puede contener caracteres.";
 		}
-		Abort();
 	}
 
+	// Validamos que el número de casa sean números.
+	private Boolean isValidHouseNumber(Owner _owner)
+	{
+		try
+		{
+			int houseNumber = Int32.Parse(_owner.HouseNumber);
+			return true;
+		}
+		catch
+		{
+			return false;
+		}
+	}
 }
