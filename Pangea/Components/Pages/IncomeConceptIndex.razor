@@ -4,23 +4,26 @@
 @inject NavigationManager _navigator
 
 <h3>Conceptos para Ingresos</h3>
-<a class=" btn btn-success" href="incomeconcepts/new">
+<a class=" btn btn-success mb-5" href="incomeconcepts/new">
 	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-plus-circle" viewBox="0 0 16 16">
 		<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
 		<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
 	</svg>
-	Agregar concepto
+	<span class="mx-2">Agregar concepto</span>
 </a>
+<br />
 
 @if (_incomeConcepts == null)
 {
-	<div class="spinner-border" role="status">
+	<div class="spinner-border my-4" role="status">
 		<span class="visually-hidden">Cargando...</span>
 	</div>
 }
 else if (_incomeConcepts.Count == 0)
 {
-	<h3>No existen conceptos dados de alta.</h3>
+	<div class="alert alert-warning" role="alert">
+		<p>No existen conceptos dados de alta</p>
+	</div>
 }
 else
 {

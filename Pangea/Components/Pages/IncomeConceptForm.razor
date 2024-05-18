@@ -1,0 +1,63 @@
+﻿@page "/incomeconcepts/new"
+@page "/incomeconcepts/edit/{id:int}"
+@rendermode InteractiveServer
+@inject NavigationManager _navigator;
+@inject IRepositoryIncomeConcept _repository
+
+<h3>Alta / Modificación de Conceptos para Ingresos</h3>
+<h4>@_mensaje Concepto</h4>
+
+<EditForm Model="_incomeConcept" FormName="frmIncomeConcepts" OnValidSubmit="SaveConcept">
+	<DataAnnotationsValidator />
+	<div class="row mb-3">
+		<label for="txtIncomeConcept" class="col-2 col-form-label">Nombre del Concepto</label>
+		<div class="col-10">
+			<InputText id="txtIncomeConcept" class="form-control" @bind-Value="_incomeConcept.Concept" />
+			<ValidationMessage For="()=>_incomeConcept.Concept" />
+		</div>
+	</div>
+	<button type="submit" class="btn btn-primary">Guardar</button>
+	<button class="btn btn-danger ms-3" @onclick="Abort" @onclick:preventDefault>Cancelar</button>
+</EditForm>
+
+@code {
+	[Parameter]
+	public int Id { get; set; }
+	private string _mensaje = "";
+	private IncomeConcept? _incomeConcept = new();
+
+	protected override async Task OnInitializedAsync()
+	{
+		if (Id > 0)
+		{
+			_incomeConcept = await _repository.Get(Id);
+			_mensaje = "Modificar";
+		}
+		else
+		{
+			_mensaje = "Nuevo";
+		}
+	}
+	// Regresa a la lista de conceptos
+	private void Abort()
+	{
+		_navigator.NavigateTo("/incomeconcepts");
+	}
+
+	// Guarda o modifica los datos del propietario nuevo/existente
+	private async void SaveConcept()
+	{
+		if (Id > 0)
+		{
+			await _repository.Update(Id, _incomeConcept!);
+		}
+		else
+		{
+			await _repository.Add(_incomeConcept!);
+		}
+		// Después de guardar regresamos a la lista de propietarios
+		Abort();
+	}
+
+
+}

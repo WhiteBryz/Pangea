@@ -3,14 +3,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Pangea.Repository
 {
-	public class RepositorioIncomeConcept : IRepositoryIncomeConcept
+	public class RepositoryIncomeConcept : IRepositoryIncomeConcept
 	{
 		private readonly PangeaDbContext _context;
-		public RepositorioIncomeConcept(PangeaDbContext context)
+		public RepositoryIncomeConcept(PangeaDbContext context)
 		{
 			_context = context;
 		}
-
 		public async Task<IncomeConcept> Add(IncomeConcept concept)
 		{
 			await _context.IncomeConcepts.AddAsync(concept);
@@ -47,5 +46,6 @@ namespace Pangea.Repository
 				await _context.SaveChangesAsync();
 			}
 		}
+
 	}
 }
