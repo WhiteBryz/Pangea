@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<PangeaDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IRepositoryOwners, RepositoryOwners>(); // Owners
 builder.Services.AddScoped<IRepositoryIncomeConcept,RepositoryIncomeConcept>(); // IncomeConcepts
+builder.Services.AddScoped<IRepositoryUserAdmin, RepositoryUserAdmin>(); // UserAdmin
 builder.Services.AddRazorComponents()
 	.AddInteractiveServerComponents()
 	.AddInteractiveWebAssemblyComponents();

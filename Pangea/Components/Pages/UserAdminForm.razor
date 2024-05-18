@@ -1,0 +1,84 @@
+﻿@page "/useradmin/new"
+@page "/useradmin/edit/{id:int}"
+@rendermode InteractiveServer
+@inject NavigationManager _navigator;
+@inject IRepositoryUserAdmin _repository;
+
+<h3>Añadir / Modificar Super Usuarios</h3>
+<h5>@_mensaje Super Usuario</h5>
+
+<EditForm Model="_userAdmin" FormName="frmUserAdmin" OnValidSubmit="SaveOwner">
+	<DataAnnotationsValidator />
+	<div class="row mb-3">
+		<label for="txtUserAdminName" class="col-2 col-form-label">Nombre del super usuario</label>
+		<div class="col-10">
+			<InputText id="txtUserAdminName" class="form-control" @bind-Value="_userAdmin.AdminName" />
+			<ValidationMessage For="()=>_userAdmin.AdminName" />
+		</div>
+	</div>
+	<div class="row mb-3">
+		<label for="txtPosition" class="col-2 col-form-label">Posición</label>
+		<div class="col-10">
+			<InputSelect id="txtPosition" class="form-control" @bind-Value="_userAdmin.Position">
+				<option value="Administrador/a">Administrador/a</option>
+				<option value="Tesorero/a">Tesorero/a</option>
+				<option value="Secretario/a">Secretario/a</option>
+			</InputSelect>
+			<ValidationMessage For="()=>_userAdmin.Position" />
+		</div>
+	</div>
+	<div class="row mb-3">
+		<label for="txtIsActive" class="col-2 col-form-label">Estátus del propietario</label>
+		<div class="col-10">
+				<InputRadioGroup id="txtIsActive" class="form-control" @bind-Value="_userAdmin.IsActive">
+				<InputRadio Value="true" />Activo
+				<InputRadio Value="false" />Inactivo
+			</InputRadioGroup>
+				<ValidationMessage For="()=>_userAdmin.IsActive" />
+		</div>
+	</div>
+	<button type="submit" class="btn btn-primary">Guardar</button>
+	<button class="btn btn-danger ms-3" @onclick="Abort" @onclick:preventDefault>Cancelar</button>
+</EditForm>
+
+@code {
+	[Parameter]
+	public int Id { get; set; }
+	private string _mensaje = "";
+	private UserAdmin? _userAdmin = new();
+
+	protected override async Task OnInitializedAsync()
+	{
+		if (Id > 0)
+		{
+			_userAdmin = await _repository.Get(Id);
+			_mensaje = "Modificar";
+		}
+		else
+		{
+			_mensaje = "Nuevo";
+		}
+	}
+
+	// Regresa a la lista de administradores
+	private void Abort()
+	{
+		_navigator.NavigateTo("/useradmin");
+	}
+
+	// Guarda o modifica los datos del propietario nuevo/existente
+	private async void SaveOwner()
+	{
+		if (Id > 0)
+		{
+			await _repository.Update(Id, _userAdmin!);
+		}
+		else
+		{
+			await _repository.Add(_userAdmin!);
+		}
+
+		// Después de guardar regresamos a la lista de propietarios
+		Abort();
+	}
+}
