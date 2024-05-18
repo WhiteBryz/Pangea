@@ -3,16 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\david\\Documents\\Pangea\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{666CE585-86CE-4924-874E-CA48BF379A48}|Pangea\\Pangea.csproj|c:\\users\\david\\documents\\pangea\\pangea\\components\\pages\\ownersform.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{666CE585-86CE-4924-874E-CA48BF379A48}|Pangea\\Pangea.csproj|solutionrelative:pangea\\components\\pages\\ownersform.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{666CE585-86CE-4924-874E-CA48BF379A48}|Pangea\\Pangea.csproj|c:\\users\\david\\documents\\pangea\\pangea\\components\\pages\\incomeconceptindex.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{666CE585-86CE-4924-874E-CA48BF379A48}|Pangea\\Pangea.csproj|solutionrelative:pangea\\components\\pages\\incomeconceptindex.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{666CE585-86CE-4924-874E-CA48BF379A48}|Pangea\\Pangea.csproj|c:\\users\\david\\documents\\pangea\\pangea\\components\\pages\\ownersindex.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{666CE585-86CE-4924-874E-CA48BF379A48}|Pangea\\Pangea.csproj|solutionrelative:pangea\\components\\pages\\ownersindex.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{666CE585-86CE-4924-874E-CA48BF379A48}|Pangea\\Pangea.csproj|c:\\users\\david\\documents\\pangea\\pangea\\repository\\irepositoryincomeconcept.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{666CE585-86CE-4924-874E-CA48BF379A48}|Pangea\\Pangea.csproj|solutionrelative:pangea\\repository\\irepositoryincomeconcept.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{666CE585-86CE-4924-874E-CA48BF379A48}|Pangea\\Pangea.csproj|c:\\users\\david\\documents\\pangea\\pangea\\model\\useradmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{666CE585-86CE-4924-874E-CA48BF379A48}|Pangea\\Pangea.csproj|solutionrelative:pangea\\model\\useradmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{666CE585-86CE-4924-874E-CA48BF379A48}|Pangea\\Pangea.csproj|c:\\users\\david\\documents\\pangea\\pangea\\model\\owner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{666CE585-86CE-4924-874E-CA48BF379A48}|Pangea\\Pangea.csproj|solutionrelative:pangea\\model\\owner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{666CE585-86CE-4924-874E-CA48BF379A48}|Pangea\\Pangea.csproj|c:\\users\\david\\documents\\pangea\\pangea\\model\\pangeadbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{666CE585-86CE-4924-874E-CA48BF379A48}|Pangea\\Pangea.csproj|solutionrelative:pangea\\model\\pangeadbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,45 +30,71 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Owner.cs",
-              "DocumentMoniker": "C:\\Users\\david\\Documents\\Pangea\\Pangea\\Model\\Owner.cs",
-              "RelativeDocumentMoniker": "Pangea\\Model\\Owner.cs",
-              "ToolTip": "C:\\Users\\david\\Documents\\Pangea\\Pangea\\Model\\Owner.cs",
-              "RelativeToolTip": "Pangea\\Model\\Owner.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAPAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-04T18:04:29.742Z",
+              "DocumentIndex": 0,
+              "Title": "IncomeConceptIndex.razor",
+              "DocumentMoniker": "C:\\Users\\david\\Documents\\Pangea\\Pangea\\Components\\Pages\\IncomeConceptIndex.razor",
+              "RelativeDocumentMoniker": "Pangea\\Components\\Pages\\IncomeConceptIndex.razor",
+              "ToolTip": "C:\\Users\\david\\Documents\\Pangea\\Pangea\\Components\\Pages\\IncomeConceptIndex.razor",
+              "RelativeToolTip": "Pangea\\Components\\Pages\\IncomeConceptIndex.razor",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-18T19:31:31.316Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "OwnersIndex.razor",
-              "DocumentMoniker": "C:\\Users\\david\\Documents\\Pangea\\Pangea\\Components\\Pages\\OwnersIndex.razor",
-              "RelativeDocumentMoniker": "Pangea\\Components\\Pages\\OwnersIndex.razor",
-              "ToolTip": "C:\\Users\\david\\Documents\\Pangea\\Pangea\\Components\\Pages\\OwnersIndex.razor",
-              "RelativeToolTip": "Pangea\\Components\\Pages\\OwnersIndex.razor",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAsAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-04T17:21:35.021Z",
+              "Title": "IRepositoryIncomeConcept.cs",
+              "DocumentMoniker": "C:\\Users\\david\\Documents\\Pangea\\Pangea\\Repository\\IRepositoryIncomeConcept.cs",
+              "RelativeDocumentMoniker": "Pangea\\Repository\\IRepositoryIncomeConcept.cs",
+              "ToolTip": "C:\\Users\\david\\Documents\\Pangea\\Pangea\\Repository\\IRepositoryIncomeConcept.cs*",
+              "RelativeToolTip": "Pangea\\Repository\\IRepositoryIncomeConcept.cs*",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-18T19:29:30.941Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "OwnersForm.razor",
-              "DocumentMoniker": "C:\\Users\\david\\Documents\\Pangea\\Pangea\\Components\\Pages\\OwnersForm.razor",
-              "RelativeDocumentMoniker": "Pangea\\Components\\Pages\\OwnersForm.razor",
-              "ToolTip": "C:\\Users\\david\\Documents\\Pangea\\Pangea\\Components\\Pages\\OwnersForm.razor",
-              "RelativeToolTip": "Pangea\\Components\\Pages\\OwnersForm.razor",
-              "ViewState": "AQIAACoAAAAAAAAAAAAAADQAAAAlAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-04T17:20:55.239Z",
+              "DocumentIndex": 4,
+              "Title": "PangeaDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\david\\Documents\\Pangea\\Pangea\\Model\\PangeaDbContext.cs",
+              "RelativeDocumentMoniker": "Pangea\\Model\\PangeaDbContext.cs",
+              "ToolTip": "C:\\Users\\david\\Documents\\Pangea\\Pangea\\Model\\PangeaDbContext.cs",
+              "RelativeToolTip": "Pangea\\Model\\PangeaDbContext.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAyAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-18T19:03:04.924Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Owner.cs",
+              "DocumentMoniker": "C:\\Users\\david\\Documents\\Pangea\\Pangea\\Model\\Owner.cs",
+              "RelativeDocumentMoniker": "Pangea\\Model\\Owner.cs",
+              "ToolTip": "C:\\Users\\david\\Documents\\Pangea\\Pangea\\Model\\Owner.cs",
+              "RelativeToolTip": "Pangea\\Model\\Owner.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-18T18:49:40.426Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserAdmin.cs",
+              "DocumentMoniker": "C:\\Users\\david\\Documents\\Pangea\\Pangea\\Model\\UserAdmin.cs",
+              "RelativeDocumentMoniker": "Pangea\\Model\\UserAdmin.cs",
+              "ToolTip": "C:\\Users\\david\\Documents\\Pangea\\Pangea\\Model\\UserAdmin.cs",
+              "RelativeToolTip": "Pangea\\Model\\UserAdmin.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAA0AAABEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-18T18:44:25.662Z",
               "EditorCaption": ""
             }
           ]
