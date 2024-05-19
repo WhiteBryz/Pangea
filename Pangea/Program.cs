@@ -11,7 +11,7 @@ builder.Services.AddDbContext<PangeaDbContext>(options => options.UseSqlServer(b
 builder.Services.AddScoped<IRepositoryOwners, RepositoryOwners>(); // Owners
 builder.Services.AddScoped<IRepositoryIncomeConcept,RepositoryIncomeConcept>(); // IncomeConcepts
 builder.Services.AddScoped<IRepositoryUserAdmin, RepositoryUserAdmin>(); // UserAdmin
-
+builder.Services.AddScoped<IRepositoryIncome, RepositoryIncome>(); // Income
 builder.Services.AddRazorComponents()
 	.AddInteractiveServerComponents()
 	.AddInteractiveWebAssemblyComponents();
