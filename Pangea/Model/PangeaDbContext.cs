@@ -10,6 +10,7 @@ namespace Pangea.Model
 		public DbSet<Owner> Owners { get; set; }
 		public DbSet<IncomeConcept> IncomeConcepts { get; set;}
 		public DbSet<UserAdmin>	UserAdmins { get; set; }
+		public DbSet<Income> Incomes { get; set; }
 	}
 
 }
