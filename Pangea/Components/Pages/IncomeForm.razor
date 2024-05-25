@@ -1,0 +1,239 @@
+﻿@page "/incomes/new"
+@page "/incomes/edit/{id:int}"
+@rendermode InteractiveServer
+@inject IRepositoryIncome _RepositoryIncome;
+@inject IRepositoryOwners _RepositoryOwners;
+@inject IRepositoryUserAdmin _RepositoryAdmin;
+@inject IRepositoryIncomeConcept _RepositoryConcept;
+@inject NavigationManager _navigator
+
+<h3>Añadir / Modificar Ingresos</h3>
+
+<EditForm Model="_income" FormName="frmIncome" OnValidSubmit="SaveIncome">
+	<DataAnnotationsValidator />
+	
+	<!-- Apartado para Seleccionar Fechas -->
+	<div class="row mb-3">
+		<label for="txtToday" class="col-2 col-form-label">Fecha de Registro</label>
+		<div class="col-10">
+			<InputDate id="txtToday" class="form-control" @bind-Value="_income.RegisterDate" disabled/>
+			<ValidationMessage For="()=>_income.RegisterDate" />
+		</div>
+
+		<label for="txtPaidDate" class="col-2 col-form-label">Fecha en que Paga</label>
+		<div class="col-10">
+			<InputDate id="txtPaidDate" class="form-control" @bind-Value="_income.PaidDate"/>
+			<ValidationMessage For="()=>_income.PaidMethod" />
+		</div>
+	</div>
+	<!-- Apartado para Ingresar el Mes y Año en que aplican los pagos -->
+	<div class="row mb-3">
+		<label for="txtApplicableMonth" class="col-2 col-form-label">Mes que Aplica</label>
+		<div class="col-10">
+			<InputSelect id="txtApplicableMonth" class="form-control" @bind-Value="_income.ApplicableMonth">
+				<option>Selecciona un Mes</option>
+				@foreach(var month in monthsOfYear)
+				{
+					<option value="@month.Key">@month.Value</option>
+				}
+			</InputSelect>
+			<ValidationMessage For="()=>_income.ApplicableMonth" />
+		</div>
+
+		<label for="txtApplicableYear" class="col-2 col-form-label">Año que Aplica</label>
+		<div class="col-10">
+			<InputNumber id="intApplicableYear" class="form-control" @bind-Value="_income.ApplicableYear"  />
+			<ValidationMessage For="()=>_income.ApplicableYear" />
+		</div>
+	</div>
+	<!-- Apartado para Seleccionar el Super Usuario -->
+	<div class="row mb-3">
+		<label for="txtUserAdmin" class="col-2 col-form-label">Super Usuario</label>
+		<div class="col-10">
+			<InputSelect id="txtUserAdmin" class="form-control" @bind-Value="_income.UserAdminId">
+				<option>Quién registra...</option>
+				@if(_userAdmins.Count > 0)
+				{
+					@foreach (UserAdmin admin in _userAdmins)
+					{
+						<option value="@admin.Id">@admin.AdminName</option>
+					}
+				}
+				else
+				{
+					<option>❌ No hay super usuarios registrados</option>
+				}
+			</InputSelect>
+			<ValidationMessage For="()=>_income.UserAdmin" />
+		</div>
+	</div>
+	<!-- Apartado para Ingresar Número de Orden -->
+	<div class="row mb-3">
+		<label for="txtOrderNum" class="col-2 col-form-label">Número de Orden</label>
+		<div class="col-10">
+			<InputText id="txtOrderNum" class="form-control" @bind-Value="_income.OrderNum" />
+			<ValidationMessage For="()=>_income.OrderNum" />
+		</div>
+	</div>
+	<!-- Apartado para Seleccionar el Propietario que Paga -->
+	<div class="row mb-3">
+		<label for="numHouse" class="col-2 col-form-label">Número de Casa</label>
+		<div class="col-10">
+			<InputNumber id="numHouse" class="form-control" @bind-Value="_HouseNumber" />
+		</div>
+		
+		<label for="txtOwner" class="col-2 col-form-label">Super Usuario</label>
+		<div class="col-10">
+			<InputSelect id="txtOwner" class="form-control" @bind-Value="_income.OwnerId">
+				<option>Quién paga...</option>
+				@if (_userAdmins.Count > 0)
+				{
+					@foreach (UserAdmin admin in _userAdmins)
+					{
+						<option value="@admin.Id">@admin.AdminName</option>
+					}
+				}
+				else
+				{
+					<option>❌ No hay super usuarios registrados</option>
+				}
+			</InputSelect>
+			<ValidationMessage For="()=>_income.UserAdmin" />
+		</div>
+	</div>
+	<!-- Apartado para Seleccionar Método de Pago -->
+	<div class="row mb-3">
+		<label for="txtPaidMethod" class="col-2 col-form-label">Método de Pago</label>
+		<div class="col-10">
+			<InputSelect id="txtApplicableMonth" class="form-control" @bind-Value="_income.PaidMethod">
+				<option>Selecciona Método de Pago...</option>
+				<option value="Efectivo">Efectivo</option>
+				<option value="Transferencia Electronica">Transferencia Electrónica</option>
+			</InputSelect>
+			<ValidationMessage For="()=>_income.PaidMethod" />
+		</div>
+	</div>
+	<!-- Apartado para Ingresar Monto que se paga -->
+	<div class="row mb-3">
+		<label for="numAmount" class="col-2 col-form-label">Monto</label>
+		<div class="col-10">
+			<InputNumber id="numAmount" class="form-control" @bind-Value="_income.Amount" />
+			<ValidationMessage For="()=>_income.Amount" />
+		</div>
+	</div>
+	<!-- Apartado para Ingresar Estátus del Pago -->
+	<div class="row mb-3">
+		<label for="txtPaidStatus" class="col-2 col-form-label">Estátus del Pago</label>
+		<div class="col-10">
+			<InputText id="txtPaidStatus" class="form-control" @bind-Value="_income.PaidStatus" />
+		</div>
+	</div>
+	<!-- Apartado para Ingresar Comentarios -->
+	<div class="row mb-3">
+		<label for="txtComments" class="col-2 col-form-label">Comentarios</label>
+		<div class="col-10">
+			<InputTextArea id="txtComments" class="form-control" @bind-Value="_income.Comments" />
+		</div>
+	</div>
+
+	<button type="submit" class="btn btn-primary">Guardar</button>
+	<button class="btn btn-danger ms-3" @onclick="Abort" @onclick:preventDefault>Cancelar</button>
+</EditForm>
+
+
+@code {
+	[Parameter]
+	public int Id { get; set; }
+	private string _mensaje = "";
+	private Income? _income = new();
+	private List<Owner>? _owners;
+	private List<UserAdmin>? _userAdmins;
+	private List<IncomeConcept>? _incomeConcepts;
+	private int _HouseNumber;
+
+	private DateTime _today = DateTime.Today;
+
+	// Diccionario con los meses del año
+	Dictionary<int, string> monthsOfYear = new Dictionary<int, string>
+		{
+			{1, "Enero"},
+			{2, "Febrero"},
+			{3, "Marzo"},
+			{4, "Abril"},
+			{5, "Mayo"},
+			{6, "Junio"},
+			{7, "Julio"},
+			{8, "Agosto"},
+			{9, "Septiembre"},
+			{10, "Octubre"},
+			{11, "Noviembre"},
+			{12, "Diciembre"}
+		};
+
+	protected override async Task OnInitializedAsync()
+	{
+		// _income.ApplicableYear = 2024;
+		_owners = await _RepositoryOwners.GetAll();
+		_userAdmins = await _RepositoryAdmin.GetAll();
+		_incomeConcepts = await _RepositoryConcept.GetAll();
+
+		if (Id > 0)
+		{
+			_income = await _RepositoryIncome.Get(Id);
+			_mensaje = "Modificar";
+		}
+		else
+		{
+			_mensaje = "Nuevo";
+
+			// Parámetros de configuración rápida en el apartado de fechas
+			_income.RegisterDate = _today;
+			_income.PaidDate = _income.RegisterDate;
+			_income.ApplicableMonth = _income.PaidDate.Month;
+			_income.ApplicableYear = _income.PaidDate.Year;
+		}
+	}
+
+	// Regresa a la lista de administradores
+	private void Abort()
+	{
+		_navigator.NavigateTo("/incomes");
+	}
+
+	private async void SaveIncome()
+	{
+		if (Id > 0)
+		{
+			await _RepositoryIncome.Update(Id, _income!);
+		}
+		else
+		{
+			await _RepositoryIncome.Add(_income!);
+		}
+
+		// Después de guardar regresamos a la lista de propietarios
+		Abort();
+	}
+
+	private void SetApplicableMonthIfPaidDateChange()
+	{
+		_income.ApplicableMonth = _income.PaidDate.Month;
+	}
+
+	/*
+	public ActionResult MiVista()
+		{
+		var currentDateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+		ViewBag.CurrentDateTime = currentDateTime;
+		return View();
+	}
+
+	private string DeterminePaidStatus()
+		{
+		if(_income.PaidDate.Day != null)
+		{
+
+	}
+	}
+	*/
+}

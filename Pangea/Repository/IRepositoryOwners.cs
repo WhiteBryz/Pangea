@@ -9,5 +9,6 @@ namespace Pangea.Repository
 		Task<Owner> Add(Owner owner);
 		Task Update(int id, Owner owner);
 		Task Delete(int id);
+		Task<Owner?> GetOwnersByHouseNumber(int id);
 	}
 }

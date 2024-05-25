@@ -4,3 +4,7 @@ Pangea.Client\bin
 Pangea.Client\obj
 *.user
 *.suo
+Pangea/bin
+Pangea/obj
+Pangea.Client/bin
+Pangea.Client/obj

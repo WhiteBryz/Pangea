@@ -38,6 +38,11 @@ namespace Pangea.Repository
 			return await _context.Owners.ToListAsync();
 		}
 
+		public async Task<List<Owner>> GetOwnersByHouseNumber(string houseNumber)
+		{
+			return await _context.Owners.Include(p => p.HouseNumber == houseNumber).ToListAsync();
+		}
+
 		public async Task Update(int id, Owner owner)
 		{
 			var actualOwner = await _context.Owners.FindAsync(id);
