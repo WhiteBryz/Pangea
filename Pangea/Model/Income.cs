@@ -15,7 +15,7 @@ namespace Pangea.Model
 		[Required(ErrorMessage = "Se necesita colocar el método de pago")]
 		public string PaidMethod { get; set; }
 		[Required(ErrorMessage = "Se necesita colocar una cantidad")]
-		[MinLength(1,ErrorMessage = "Colocar una cantidad válida")]
+		[Range(0, double.MaxValue, ErrorMessage = "Colocar una cantidad válida")]
 		public double Amount { get; set; }
 		public string? PaidStatus { get; set; }
         public string? Comments{ get; set; }

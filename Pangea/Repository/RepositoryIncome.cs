@@ -34,7 +34,11 @@ namespace Pangea.Repository
 
 			public async Task<List<Income>> GetAll()
 			{
-				return await _context.Incomes.ToListAsync();
+				return await _context.Incomes
+										.Include(u => u.UserAdmin)
+										.Include(o => o.Owner)
+										.Include(ic => ic.IncomeConcept)
+										.ToListAsync();
 			}
 
 			public async Task Update(int id, Income income)

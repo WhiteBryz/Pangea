@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "Pangea.Client",
   "resources": {
-    "hash": "sha256-gAcRIfi41oO3UXE1ofYaUvz65yH8ktk0UjwBszfMzD0=",
+    "hash": "sha256-03WpqL8qVi9ObgpStBAAa5co4VJLDbbNUzfql2gF810=",
     "jsModuleNative": {
       "dotnet.native.8.0.2.gadnfbnas0.js": "sha256-gPMK16QWoJSTxorlZJqcVtbBRTniIQWlLsJN2O4cJHg="
     },
@@ -208,10 +208,10 @@
       "mscorlib.wasm": "sha256-OH3kXneWqQMz6CUSo6POZqIeMqn9+5RR+IgHn5TnIwA=",
       "netstandard.wasm": "sha256-ZOswxXEbR2TmqjpbaBEdgr85Bv1NC4GwOwoJ+oxXM3M=",
       "System.Private.CoreLib.wasm": "sha256-I2w0iHf5nvSQyF1YE1VbgdTzmmz6a4OE6J7vo5wFa/4=",
-      "Pangea.Client.wasm": "sha256-h4jt31ikwAKLGqLJ598/AJN99eBy8QNQgM6lJL1FUo8="
+      "Pangea.Client.wasm": "sha256-CN3/2WduTn1R08W17Icyoidg40QyhofGWBpHd2gbmUM="
     },
     "pdb": {
-      "Pangea.Client.pdb": "sha256-UQpxy+LtYqk6RDnFkiPHhKIExqBehMn+U7xVIukhtd4="
+      "Pangea.Client.pdb": "sha256-8xTr2n9Ki7ZVwLzZ5a4hkWFH2N/6o59Back2pCNboGc="
     }
   },
   "cacheBootResources": true,

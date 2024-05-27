@@ -15,13 +15,13 @@
 	<!-- Apartado para Seleccionar Fechas -->
 	<div class="row mb-3">
 		<label for="txtToday" class="col-2 col-form-label">Fecha de Registro</label>
-		<div class="col-10">
+		<div class="col-3">
 			<InputDate id="txtToday" class="form-control" @bind-Value="_income.RegisterDate" disabled/>
 			<ValidationMessage For="()=>_income.RegisterDate" />
 		</div>
 
 		<label for="txtPaidDate" class="col-2 col-form-label">Fecha en que Paga</label>
-		<div class="col-10">
+		<div class="col-3">
 			<InputDate id="txtPaidDate" class="form-control" @bind-Value="_income.PaidDate"/>
 			<ValidationMessage For="()=>_income.PaidMethod" />
 		</div>
@@ -29,8 +29,8 @@
 	<!-- Apartado para Ingresar el Mes y Año en que aplican los pagos -->
 	<div class="row mb-3">
 		<label for="txtApplicableMonth" class="col-2 col-form-label">Mes que Aplica</label>
-		<div class="col-10">
-			<InputSelect id="txtApplicableMonth" class="form-control" @bind-Value="_income.ApplicableMonth">
+		<div class="col-3">
+			<InputSelect id="txtApplicableMonth" class="form-control" @bind-Value="_income.ApplicableMonth" @onclick="SetApplicableMonthIfPaidDateChange">
 				<option>Selecciona un Mes</option>
 				@foreach(var month in monthsOfYear)
 				{
@@ -41,7 +41,7 @@
 		</div>
 
 		<label for="txtApplicableYear" class="col-2 col-form-label">Año que Aplica</label>
-		<div class="col-10">
+		<div class="col-3">
 			<InputNumber id="intApplicableYear" class="form-control" @bind-Value="_income.ApplicableYear"  />
 			<ValidationMessage For="()=>_income.ApplicableYear" />
 		</div>
@@ -52,7 +52,7 @@
 		<div class="col-10">
 			<InputSelect id="txtUserAdmin" class="form-control" @bind-Value="_income.UserAdminId">
 				<option>Quién registra...</option>
-				@if(_userAdmins.Count > 0)
+				@if (_userAdmins != null && _userAdmins.Count > 0)
 				{
 					@foreach (UserAdmin admin in _userAdmins)
 					{
@@ -78,24 +78,24 @@
 	<!-- Apartado para Seleccionar el Propietario que Paga -->
 	<div class="row mb-3">
 		<label for="numHouse" class="col-2 col-form-label">Número de Casa</label>
-		<div class="col-10">
-			<InputNumber id="numHouse" class="form-control" @bind-Value="_HouseNumber" />
+		<div class="col-3">
+			<InputNumber id="numHouse" class="form-control" @bind-Value="_HouseNumber" @onclick="OnHouseNumberChanged" />
 		</div>
 		
-		<label for="txtOwner" class="col-2 col-form-label">Super Usuario</label>
-		<div class="col-10">
-			<InputSelect id="txtOwner" class="form-control" @bind-Value="_income.OwnerId">
+		<label for="txtOwner" class="col-2 col-form-label">Propietario</label>
+		<div class="col-5">
+			<InputSelect id="txtOwner" class="form-control" @bind-Value="_income.OwnerId" @onclick="()=>{IsOwnerOptionSelected(_income.OwnerId);}">
 				<option>Quién paga...</option>
-				@if (_userAdmins.Count > 0)
+				@if (_owners != null && _owners.Count > 0)
 				{
-					@foreach (UserAdmin admin in _userAdmins)
+					@foreach(Owner owner in _owners)
 					{
-						<option value="@admin.Id">@admin.AdminName</option>
+						<option value="@owner.Id">@owner.OwnerName</option>
 					}
 				}
 				else
 				{
-					<option>❌ No hay super usuarios registrados</option>
+					<option>❌ No existen propietarios registrados.</option>
 				}
 			</InputSelect>
 			<ValidationMessage For="()=>_income.UserAdmin" />
@@ -109,6 +109,28 @@
 				<option>Selecciona Método de Pago...</option>
 				<option value="Efectivo">Efectivo</option>
 				<option value="Transferencia Electronica">Transferencia Electrónica</option>
+			</InputSelect>
+			<ValidationMessage For="()=>_income.PaidMethod" />
+		</div>
+	</div>
+	<!-- Apartado para Seleccionar Concepto de Pago -->
+	<div class="row mb-3">
+		<label for="txtIncomeConcept" class="col-2 col-form-label">Concepto de Pago</label>
+		<div class="col-10">
+			<InputSelect id="txtApplicableMonth" class="form-control" @bind-Value="_income.IncomeConceptId">
+				<option>Selecciona Concepto de Pago...</option>
+				@if (_incomeConcepts != null && _incomeConcepts.Count > 0)
+				{
+					@foreach (IncomeConcept income in _incomeConcepts)
+					{
+						<option value="@income.Id">@income.Concept</option>
+					}
+				}
+				else
+				{
+					<option>❌ No existe ningún concepto de pago registrado</option>
+				}
+
 			</InputSelect>
 			<ValidationMessage For="()=>_income.PaidMethod" />
 		</div>
@@ -145,11 +167,14 @@
 	[Parameter]
 	public int Id { get; set; }
 	private string _mensaje = "";
+	private string _ErrorMessageOnHouseOwners = "";
 	private Income? _income = new();
+	private Owner? _owner = new();
 	private List<Owner>? _owners;
 	private List<UserAdmin>? _userAdmins;
 	private List<IncomeConcept>? _incomeConcepts;
 	private int _HouseNumber;
+	private int selectedOwnerId; // Se utiliza para el InputSelect de los propietarios. Toma el Id de cada propietario y lo ingresa a la función.
 
 	private DateTime _today = DateTime.Today;
 
@@ -181,6 +206,7 @@
 		{
 			_income = await _RepositoryIncome.Get(Id);
 			_mensaje = "Modificar";
+			_HouseNumber = Id;
 		}
 		else
 		{
@@ -215,25 +241,35 @@
 		Abort();
 	}
 
+	// Modifica el InputText del Mes que Aplica en caso de que la fecha cambie.
 	private void SetApplicableMonthIfPaidDateChange()
 	{
 		_income.ApplicableMonth = _income.PaidDate.Month;
+		_income.ApplicableYear = _income.PaidDate.Year;
 	}
 
-	/*
-	public ActionResult MiVista()
+	// Función que funciona como filtro en el Select de los Owners
+	private async void OnHouseNumberChanged()
+	{
+		// Si el usuario modifica el InputNumber del número de casa, traemos solamente a los propietarios de esa casa.
+		if(_HouseNumber > 0)
 		{
-		var currentDateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-		ViewBag.CurrentDateTime = currentDateTime;
-		return View();
+				string _House = _HouseNumber.ToString();
+				_owners = await _RepositoryOwners.GetOwnersByHouseNumber(_House);
+				_ErrorMessageOnHouseOwners = "";
+		}
+		else // Si el usuario regresa a 0 el InputNumber, traemos de nuevo a todos los propietarios.
+		{
+			_owners = await _RepositoryOwners.GetAll();
+		}
 	}
 
-	private string DeterminePaidStatus()
-		{
-		if(_income.PaidDate.Day != null)
-		{
-
+	
+	// Función que recoge el valor del OnChange y devuelve el número de casa del propietario. 
+	// Sirve para en caso de que se seleccione primero el propietario, se coloque automáticamente el número de casa.
+	private async void IsOwnerOptionSelected(int id)
+	{
+		_owner = await _RepositoryOwners.Get(id);
+		_HouseNumber = Convert.ToInt32(_owner?.HouseNumber);
 	}
-	}
-	*/
 }
