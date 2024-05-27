@@ -21,7 +21,7 @@
 }
 else if (_incomes.Count == 0)
 {
-	<h3>No existen propietarios registrados.</h3>
+	<h3>No existen ingresos registrados.</h3>
 }
 else
 {
@@ -30,7 +30,7 @@ else
 			<tr>
 				<th>Fecha de Registro</th>
 				<th>Fecha de Pago</th>
-				<th>Usuario</th>
+				<th>Super Usuario</th>
 				<th>Mes Pagado</th>
 				<th>Año</th>
 				<th>Número de Orden</th>
@@ -47,16 +47,25 @@ else
 			@foreach (Income income in _incomes)
 			{
 				<tr>
-					<td>@income.RegisterDate</td>
-					<td>@income.PaidDate</td>
-					<td>@income.UserAdminId</td>
-					<td>@income.ApplicableMonth</td>
+					<td>@income.RegisterDate.ToString("dd/MM/yyyy")</td>
+					<td>@income.PaidDate.ToString("dd/MM/yyyy")</td>
+					<td>@income.UserAdmin.AdminName</td>
+					<td>
+						@if(monthsOfYear.ContainsKey(income.ApplicableMonth))
+						{
+							@monthsOfYear[income.ApplicableMonth]
+						}
+						else
+						{
+							<span>N/A</span>
+						}
+					</td>
 					<td>@income.ApplicableYear</td>
 					<td>@income.OrderNum</td>
 					<td>@income.PaidMethod</td>
-					<td>@income.OwnerId</td>
-					<td>@income.IncomeConceptId</td>
-					<td>@income.Amount</td>
+					<td>@income.Owner.OwnerName</td>
+					<td>@income.IncomeConcept.Concept</td>
+					<td><span>$</span>@income.Amount.ToString("F2")</td>
 					<td>@income.PaidStatus</td>
 					<td>@income.Comments</td>
 					<td>
@@ -80,6 +89,22 @@ else
 
 @code {
 	private List<Income>? _incomes;
+
+	Dictionary<int, string> monthsOfYear = new Dictionary<int, string>
+		{
+			{1, "Enero"},
+			{2, "Febrero"},
+			{3, "Marzo"},
+			{4, "Abril"},
+			{5, "Mayo"},
+			{6, "Junio"},
+			{7, "Julio"},
+			{8, "Agosto"},
+			{9, "Septiembre"},
+			{10, "Octubre"},
+			{11, "Noviembre"},
+			{12, "Diciembre"}
+		};
 
 	// Cuando se inicialice el componente, se llama todo el conjunto de registros de la BD
 	protected override async Task OnInitializedAsync()

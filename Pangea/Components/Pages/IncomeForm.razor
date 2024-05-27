@@ -23,7 +23,7 @@
 		<label for="txtPaidDate" class="col-2 col-form-label">Fecha en que Paga</label>
 		<div class="col-3">
 			<InputDate id="txtPaidDate" class="form-control" @bind-Value="_income.PaidDate"/>
-			<ValidationMessage For="()=>_income.PaidMethod" />
+			<ValidationMessage For="()=>_income.PaidDate" />
 		</div>
 	</div>
 	<!-- Apartado para Ingresar el Mes y Año en que aplican los pagos -->
@@ -98,7 +98,6 @@
 					<option>❌ No existen propietarios registrados.</option>
 				}
 			</InputSelect>
-			<ValidationMessage For="()=>_income.UserAdmin" />
 		</div>
 	</div>
 	<!-- Apartado para Seleccionar Método de Pago -->
@@ -132,7 +131,7 @@
 				}
 
 			</InputSelect>
-			<ValidationMessage For="()=>_income.PaidMethod" />
+			<ValidationMessage For="()=>_income.IncomeConceptId" />
 		</div>
 	</div>
 	<!-- Apartado para Ingresar Monto que se paga -->

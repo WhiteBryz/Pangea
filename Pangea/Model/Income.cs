@@ -8,7 +8,7 @@ namespace Pangea.Model
 		public DateTime RegisterDate { get; set; }
 		public DateTime PaidDate { get; set; }
 		[Required(ErrorMessage = "Se necesita colocar el mes en que aplica el pago")]
-		public int? ApplicableMonth { get; set; }
+		public int ApplicableMonth { get; set; }
 		[Required(ErrorMessage = "Se necesita colocar el año en que aplica el pago")]
 		public int ApplicableYear { get; set; }
         public string OrderNum{ get; set; }
@@ -31,6 +31,7 @@ namespace Pangea.Model
 		virtual public Owner? Owner { get; set; }
 
 		// IncomeConcept
+		[Required(ErrorMessage = "Colocar concepto de pago")]
 		public int IncomeConceptId { get; set; }
 		virtual public IncomeConcept? IncomeConcept { get; set; }
 
