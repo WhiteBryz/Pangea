@@ -61,5 +61,47 @@ namespace Pangea.Repository
 					await _context.SaveChangesAsync();
 				}
 			}
-		}
+			/*
+			 Ordenar Por Fecha de Pago
+			 */
+			public async Task<List<Income>> OrderByPaidDateAsc()
+			{
+				return await _context.Incomes
+									.OrderBy(p => p.PaidDate)
+									.Include(u => u.UserAdmin)
+									.Include(o => o.Owner)
+									.Include(ic => ic.IncomeConcept)
+									.ToListAsync();
+			}
+			public async Task<List<Income>> OrderByPaidDateDesc()
+			{
+				return await _context.Incomes
+									.OrderByDescending(p => p.PaidDate)
+									.Include(u => u.UserAdmin)
+									.Include(o => o.Owner)
+									.Include(ic => ic.IncomeConcept)
+									.ToListAsync();
+			}
+			/*
+			 Ordenar por Número de Orden
+			 */
+			public async Task<List<Income>> OrderByOrderNumAsc()
+			{
+				return await _context.Incomes
+									.OrderBy(p => p.OrderNum)
+									.Include(u => u.UserAdmin)
+									.Include(o => o.Owner)
+									.Include(ic => ic.IncomeConcept)
+									.ToListAsync();
+			}
+			public async Task<List<Income>> OrderByOrderNumDesc()
+			{
+				return await _context.Incomes
+									.OrderByDescending(p => p.OrderNum)
+									.Include(u => u.UserAdmin)
+									.Include(o => o.Owner)
+									.Include(ic => ic.IncomeConcept)
+									.ToListAsync();
+			}
+	}
 }
