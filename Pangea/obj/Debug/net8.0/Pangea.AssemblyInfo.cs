@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Pangea")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6f6333937bb85e24bf1b2b57a02347adb31c2614")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5a1401e1081d46ae1d803bcd32faad6baec333f2")]
 [assembly: System.Reflection.AssemblyProductAttribute("Pangea")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Pangea")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

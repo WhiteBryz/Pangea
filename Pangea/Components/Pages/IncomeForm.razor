@@ -22,7 +22,7 @@
 
 		<label for="txtPaidDate" class="col-2 col-form-label">Fecha en que Paga</label>
 		<div class="col-3">
-			<InputDate id="txtPaidDate" class="form-control" @bind-Value="_income.PaidDate"/>
+			<InputDate id="txtPaidDate" class="form-control" @bind-Value="_income.PaidDate" @onclick="SetApplicableMonthIfPaidDateChange" />
 			<ValidationMessage For="()=>_income.PaidDate" />
 		</div>
 	</div>
@@ -30,7 +30,7 @@
 	<div class="row mb-3">
 		<label for="txtApplicableMonth" class="col-2 col-form-label">Mes que Aplica</label>
 		<div class="col-3">
-			<InputSelect id="txtApplicableMonth" class="form-control" @bind-Value="_income.ApplicableMonth" @onclick="SetApplicableMonthIfPaidDateChange">
+			<InputSelect id="txtApplicableMonth" class="form-control" @bind-Value="_income.ApplicableMonth">
 				<option>Selecciona un Mes</option>
 				@foreach(var month in monthsOfYear)
 				{
