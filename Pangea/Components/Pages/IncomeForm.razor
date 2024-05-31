@@ -9,6 +9,13 @@
 
 <h3> @_mensaje Ingresos</h3>
 
+@if (!String.IsNullOrEmpty(_ErrorMessageIsOrderNumRepeated))
+{
+	<div class="alert alert-warning" role="alert">
+		@_ErrorMessageIsOrderNumRepeated
+	</div>
+}
+
 <EditForm Model="_income" FormName="frmIncome" OnValidSubmit="SaveIncome" >
 	<DataAnnotationsValidator />
 	
@@ -165,13 +172,15 @@
 @code {
 	[Parameter]
 	public int Id { get; set; }
-	private string _mensaje = "";
-	private string _ErrorMessageOnHouseOwners = "";
 	private Income? _income = new();
 	private Owner? _owner = new();
 	private List<Owner>? _owners;
 	private List<UserAdmin>? _userAdmins;
 	private List<IncomeConcept>? _incomeConcepts;
+	private List<Income>? _incomes;
+	private string _mensaje = "";
+	private string _ErrorMessageOnHouseOwners = "";
+	private string _ErrorMessageIsOrderNumRepeated = "";
 	private int _HouseNumber;
 	private int selectedOwnerId; // Se utiliza para el InputSelect de los propietarios. Toma el Id de cada propietario y lo ingresa a la función.
 
@@ -200,12 +209,13 @@
 		_owners = await _RepositoryOwners.GetAll();
 		_userAdmins = await _RepositoryAdmin.GetAll();
 		_incomeConcepts = await _RepositoryConcept.GetAll();
+		_incomes = await _RepositoryIncome.GetAll();
 
 		if (Id > 0)
 		{
 			_income = await _RepositoryIncome.Get(Id);
 			_mensaje = "Modificar";
-			_HouseNumber = Id;
+			_HouseNumber = Convert.ToInt32(_income.Owner.HouseNumber);
 		}
 		else
 		{
@@ -229,15 +239,25 @@
 	{
 		if (Id > 0)
 		{
+			Console.WriteLine("Entro");
 			await _RepositoryIncome.Update(Id, _income!);
+			// Después de guardar regresamos a la lista de propietarios
+			Abort();
 		}
 		else
 		{
-			await _RepositoryIncome.Add(_income!);
+			if (IsOrderNumRepeated(_income!.OrderNum))
+			{
+				_ErrorMessageIsOrderNumRepeated = "Número de Orden Repetido";
+			}
+			else
+			{
+				_ErrorMessageIsOrderNumRepeated = "";
+				await _RepositoryIncome.Add(_income!);
+				// Después de guardar regresamos a la lista de propietarios
+				Abort();
+			}
 		}
-
-		// Después de guardar regresamos a la lista de propietarios
-		Abort();
 	}
 
 	// Modifica el InputText del Mes que Aplica en caso de que la fecha cambie.
@@ -253,9 +273,9 @@
 		// Si el usuario modifica el InputNumber del número de casa, traemos solamente a los propietarios de esa casa.
 		if(_HouseNumber > 0)
 		{
-				string _House = _HouseNumber.ToString();
-				_owners = await _RepositoryOwners.GetOwnersByHouseNumber(_House);
-				_ErrorMessageOnHouseOwners = "";
+			string _House = _HouseNumber.ToString();
+			_owners = await _RepositoryOwners.GetOwnersByHouseNumber(_House);
+			_ErrorMessageOnHouseOwners = "";
 		}
 		else // Si el usuario regresa a 0 el InputNumber, traemos de nuevo a todos los propietarios.
 		{
@@ -263,12 +283,26 @@
 		}
 	}
 
-	
+
 	// Función que recoge el valor del OnChange y devuelve el número de casa del propietario. 
 	// Sirve para en caso de que se seleccione primero el propietario, se coloque automáticamente el número de casa.
 	private async void IsOwnerOptionSelected(int id)
 	{
 		_owner = await _RepositoryOwners.Get(id);
 		_HouseNumber = Convert.ToInt32(_owner?.HouseNumber);
+	}
+
+	// Función que valida si el Número de Orden está repetido.
+	private Boolean IsOrderNumRepeated(string newOrderNum)
+	{
+		bool isRepeated = false;
+		try
+		{
+			return isRepeated = _incomes.Any(p => p.OrderNum == newOrderNum);
+		}
+		catch
+		{
+			return isRepeated;
+		}
 	}
 }

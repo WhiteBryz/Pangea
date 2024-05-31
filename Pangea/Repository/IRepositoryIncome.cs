@@ -8,7 +8,7 @@ namespace Pangea.Repository
 		Task<Income?> Get(int id);
 		Task<Income> Add(Income income);
 		Task Update(int id, Income income);
-		Task Delete(int id);
+		Task Delete(Income income);
 		Task<List<Income>> OrderByPaidDateAsc();
 		Task<List<Income>> OrderByPaidDateDesc();
 		Task<List<Income>> OrderByOrderNumAsc();

@@ -35,6 +35,7 @@ else
 				<th>Año</th>
 				<th>Número de Orden</th>
 				<th>Método de Pago</th>
+				<th>Num. Casa</th>
 				<th>Dueño</th>
 				<th>Concepto</th>
 				<th>Monto</th>
@@ -43,7 +44,7 @@ else
 				<th>Acciones</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody style="font-size:small;">
 			<tr class="table-info">
 				<td title="Fecha-Registro"></td>
 				<td title="Fecha-Pago">
@@ -64,6 +65,7 @@ else
 					</button>
 				</td>
 				<td title="Metodo-Pago"></td>
+				<td title="Numero-Casa"></td>
 				<td title="Dueño"></td>
 				<td title="Concepto"></td>
 				<td title="Monto"></td>
@@ -90,6 +92,7 @@ else
 					<td>@income.ApplicableYear</td>
 					<td>@income.OrderNum</td>
 					<td>@income.PaidMethod</td>
+					<td>@income.Owner.HouseNumber</td>
 					<td>@income.Owner.OwnerName</td>
 					<td>@income.IncomeConcept.Concept</td>
 					<td><span>$</span>@income.Amount.ToString("F2")</td>
@@ -143,7 +146,7 @@ else
 
 	private async void Delete(Income income)
 	{
-		await _repository.Delete(income.Id);
+		await _repository.Delete(income);
 		_incomes!.Remove(income);
 		StateHasChanged();
 	}

@@ -17,12 +17,12 @@ namespace Pangea.Repository
 				return income;
 			}
 
-			public async Task Delete(int id)
+			public async Task Delete(Income income)
 			{
-				var income = await _context.Incomes.FindAsync(id);
-				if (income != null)
+				var _income = await _context.Incomes.FindAsync(income.Id);
+				if (_income != null)
 				{
-					_context.Incomes.Remove(income);
+					_context.Incomes.Remove(_income);
 					await _context.SaveChangesAsync();
 				}
 			}

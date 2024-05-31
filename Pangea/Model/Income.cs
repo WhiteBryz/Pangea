@@ -11,7 +11,6 @@ namespace Pangea.Model
 		public int ApplicableMonth { get; set; }
 		[Required(ErrorMessage = "Se necesita colocar el año en que aplica el pago")]
 		public int ApplicableYear { get; set; }
-		[Key]
 		[Required(ErrorMessage = "Agregar número de orden.")]
         public string OrderNum{ get; set; }
 		[Required(ErrorMessage = "Se necesita colocar el método de pago")]

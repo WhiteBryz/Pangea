@@ -77,7 +77,7 @@ namespace Pangea.Migrations
 
                     b.HasIndex("UserAdminId");
 
-                    b.ToTable("Incomes");
+                    b.ToTable("Incomes", (string)null);
                 });
 
             modelBuilder.Entity("Pangea.Model.IncomeConcept", b =>
@@ -94,7 +94,7 @@ namespace Pangea.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("IncomeConcepts");
+                    b.ToTable("IncomeConcepts", (string)null);
                 });
 
             modelBuilder.Entity("Pangea.Model.Owner", b =>
@@ -132,7 +132,7 @@ namespace Pangea.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Owners");
+                    b.ToTable("Owners", (string)null);
                 });
 
             modelBuilder.Entity("Pangea.Model.UserAdmin", b =>
@@ -157,7 +157,7 @@ namespace Pangea.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserAdmins");
+                    b.ToTable("UserAdmins", (string)null);
                 });
 
             modelBuilder.Entity("Pangea.Model.Income", b =>
